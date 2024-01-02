@@ -4,11 +4,65 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Knight Hero Adventure Unblocked - ubg235 GameDistribution</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<title>Wizard Mike Unblocked - ubg235 GameDistribution</title>
+	<script src="Build/UnityLoader.js"></script>
+	<script>
+		var unityInstance = window.unityInstance = UnityLoader.instantiate("gameContainer", "Build/Wizard_Mike.json");
+		var scaleToFit;
+		try {
+			scaleToFit = !!JSON.parse("true");
+		} catch (e) {
+			scaleToFit = true;
+		}
+
+		function onResize() {
+			var canvas = unityInstance.Module.canvas;
+			var container = unityInstance.container;
+			
+			
+			var w;
+			var h;
+
+			if (scaleToFit) {
+				w = window.innerWidth;
+				h = window.innerHeight;
+				if(w > h && (navigator.userAgent.match(/Android/i)
+					|| navigator.userAgent.match(/webOS/i)
+					|| navigator.userAgent.match(/iPhone/i)
+					|| navigator.userAgent.match(/iPad/i)
+					|| navigator.userAgent.match(/iPod/i)
+					|| navigator.userAgent.match(/BlackBerry/i)
+					|| navigator.userAgent.match(/Windows Phone/i))){
+						window.unityInstance.SendMessage('Rotate', 'ShowImage');
+					}
+					else{
+						window.unityInstance.SendMessage('Rotate', 'HideImage');
+
+					}
+				var r = 1280 / 720;
+
+				if (w * r > window.innerHeight) {
+					w = Math.min(w, Math.ceil(h / r));
+				}
+				h = Math.floor(w * r);
+			} else {
+				w = 720;
+				h = 1280;
+			}
+
+			container.style.width = canvas.style.width = w + "px";
+			container.style.height = canvas.style.height = h + "px";
+			container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+			container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+		}
+		window.addEventListener('resize', onResize);
+	</script>
 	<style>
 		html,
 		body {
-			background: #302833;
+			background: #000;
+			background: #000;
 			width: 100%;
 			height: 100%;
 			overflow: visible;
@@ -25,8 +79,7 @@
 			position: absolute;
 		}
 
-		div#gameContainer canvas[data-pixel-art="true"] {
-			position: absolute;
+		div#gameContainer[data-pixelated='true'] canvas {
 			image-rendering: optimizeSpeed;
 			image-rendering: -webkit-crisp-edges;
 			image-rendering: -moz-crisp-edges;
@@ -40,154 +93,8 @@
 	</style>
 </head>
 
-<body style="overflow:hidden; margin:0; padding:0;">
-	<div id="gameContainer">
-		<canvas id="unity-canvas" data-pixel-art="false"></canvas>
-		<script src="Build/kh.loader.js"></script>
-		<script>
-			var canvas = document.querySelector("#unity-canvas");
-			var config = {
-				dataUrl: "Build/5c98787c021a55cba533de1829be979e.data.unityweb",
-				frameworkUrl: "Build/32e172d876a3ed583e7356f3eae4be16.js.unityweb",
-				codeUrl: "Build/cbb494d33fb70098264345ddf57a7391.wasm.unityweb",
-				streamingAssetsUrl: "StreamingAssets",
-				companyName: "ALMA Games",
-				productName: "Knight Hero",
-				productVersion: "1.6.3",
-			};
-			var scaleToFit;
-			try {
-				scaleToFit = !!JSON.parse("true");
-			} catch (e) {
-				scaleToFit = true;
-			}
-
-            var imageW;
-            var imageH;
-            var imageLeft = "50%";
-            var imageTop = "25%";
-            var loaderW;
-            var loaderH;
-            var loaderLeft = "50%";
-            var loaderTop = "75%";
-
-            var progressBG = document.createElement('div');
-            var progressBar = document.createElement('div');
-
-            var progressW = 0.65;
-            var progressH = 0.025;
-            progressBG.style.width = progressBar.style.width = 960* progressW;
-            progressBG.style.height = progressBar.style.height = 600* progressH;
-            progressBG.style.backgroundColor = '#1c0e21';
-            progressBar.style.backgroundColor = '#443156';
-            progressBG.style.position = progressBar.style.position = 'absolute';
-            progressBG.style.top = progressBar.style.top = '50%';
-            progressBG.style.left = progressBar.style.left = '50%';
-            progressBG.style.transform = progressBar.style.transform = "translate(-50%, -50%)";
-            progressBG.style.border = '1px solid black';
-            gameContainer.appendChild(progressBG);
-			gameContainer.appendChild(progressBar);
-
-            var image = new Image();
-            image.src = 'logo.webp';
-            image.style.position = "absolute";
-            image.style.left = imageLeft;
-            image.style.top = imageTop;
-            image.style.transform = "translate(-50%, -50%)";
-            document.getElementById("gameContainer").appendChild(image);
-
-            var loader = new Image();
-            loader.src = 'loader.gif';
-            loader.style.position = "absolute";
-            loader.style.left = loaderLeft;
-            loader.style.top = loaderTop;
-            loader.style.transform = "translate(-50%, -50%)";
-            document.getElementById("gameContainer").appendChild(loader);
-
-            image.onload = function () {
-                imageW = image.naturalWidth / 960;
-                imageH = image.naturalHeight / 600;
-                onResize();
-            }
-
-            loader.onload = function () {
-                loaderW = loader.naturalWidth / 960;
-                loaderH = loader.naturalHeight / 600;
-                onResize();
-            }
-
-			function progressHandler(progress) {
-				var percent = progress * 100 + '%';
-                progressBar.style.width = percent + '%';
-                progressBar.style.background = 'linear-gradient(to right, #443156, #443156 ' + percent + ', transparent ' + percent + ', transparent) no-repeat center';
-			}
-
-			function onResize() {
-				var container = canvas.parentElement;
-				var w;
-				var h;
-
-				if (scaleToFit) {
-					w = window.innerWidth;
-					h = window.innerHeight;
-
-					var r = 600 / 960;
-
-					if (w * r > window.innerHeight) {
-						w = Math.min(w, Math.ceil(h / r));
-					}
-					h = Math.floor(w * r);
-				} else {
-					w = 960;
-					h = 600;
-				}
-
-				container.style.width = canvas.style.width = w + "px";
-				container.style.height = canvas.style.height = h + "px";
-				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
-				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
-
-            image.style.width = w * imageW + "px";
-            image.style.height = h * imageH + "px";
-            loader.style.width = w * loaderW + "px";
-            loader.style.height = h * loaderH + "px";
-
-            image.style.left = imageLeft;
-            image.style.top = imageTop;
-            loader.style.left = loaderLeft;
-			loader.style.top = loaderTop;
-
-            progressBG.style.width = progressBar.style.width = w * progressW + 'px';
-			progressBG.style.height = progressBar.style.height = h * progressH + 'px';
-
-			}
-			createUnityInstance(canvas, config, progressHandler).then(function (instance) {
-				canvas = instance.Module.canvas;
-				onResize();
-            }).then(function (unityInstance) {
-				document.getElementById("gameContainer").removeChild(image);
-				document.getElementById("gameContainer").removeChild(loader);
-                document.getElementById("gameContainer").removeChild(progressBar);
-                document.getElementById("gameContainer").removeChild(progressBG);
-            });
-
-
-
-
-			window.addEventListener('resize', onResize);
-			onResize();
-
-			if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-				// Mobile device style: fill the whole browser client area with the game canvas:
-				const meta = document.createElement('meta');
-				meta.name = 'viewport';
-				meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-				document.getElementsByTagName('head')[0].appendChild(meta);
-			}
-		</script>
-	</div>
-  <script src="js/analytics_ubg_v1_4.js"></script>
-  <script src="js/ubg235_client_v1_1.js"></script>
+<body onload="onResize();">
+	<div id="gameContainer" data-pixelated="false"></div>
 </body>
 
 </html>
